@@ -1,4 +1,4 @@
-#include "ergodox_ez.h"
+#include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
 
@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  Alt |           | Alt  |------+------+------+------+------+--------|
  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Grv/L1|  '"  |   =  | Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
+ *   |Grv/L1|  '"  |  Esc | Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                      ,---------------.       ,---------------.
  *                                      |  Cmd   | Alt  |       | Alt  |  Cmd   |
@@ -33,22 +33,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
         KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LGUI,
-        KC_TAB,        KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LSFT,
+        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LSFT,
         KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_LALT,
-        LT(SYMB,KC_GRV),KC_QUOT,      KC_EQL,  KC_LEFT,KC_RGHT,
-                                               KC_LGUI,  ALT_T(KC_APP),
-                                                              KC_PGUP,
-                                         KC_SPC,KC_BSPC,CTL_T(KC_ESC),
+        LT(SYMB,KC_GRV),KC_QUOT,      KC_ESC, KC_LEFT,KC_RGHT,
+                                                 KC_LGUI,  ALT_T(KC_APP),
+                                                                 KC_PGUP,
+                                            KC_SPC,KC_BSPC,CTL_T(KC_ESC),
         // right hand
-             KC_EQL,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             KC_RSFT,       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
-                          KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),KC_QUOT,
-             KC_RALT,KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
-                                  KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          KC_FN1,
-             KC_LALT,        KC_LGUI,
-             KC_PGDN,
-             CTL_T(KC_ESC),KC_ENT, KC_SPC
+        KC_EQL,   KC_6,   KC_7,    KC_8,      KC_9,    KC_0,              KC_MINS,
+        KC_RSFT,  KC_Y,   KC_U,    KC_I,      KC_O,    KC_P,              KC_BSLS,
+                  KC_H,   KC_J,    KC_K,      KC_L,    LT(MDIA, KC_SCLN), KC_QUOT,
+        KC_RALT,  KC_N,   KC_M,    KC_COMM,   KC_DOT,  CTL_T(KC_SLSH),    KC_RSFT,
+                          KC_UP,   KC_DOWN,   KC_LBRC, KC_RBRC,           KC_FN1,
+        KC_LALT,        KC_LGUI,
+        KC_PGDN,
+        CTL_T(KC_ESC),KC_ENT, KC_SPC
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -139,6 +139,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
@@ -155,12 +156,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 // Runs just one time when the keyboard initializes.
-void * matrix_init_user(void) {
+void matrix_init_user(void) {
 
 };
 
 // Runs constantly in the background, in a loop.
-void * matrix_scan_user(void) {
+void matrix_scan_user(void) {
 
     uint8_t layer = biton32(layer_state);
 
